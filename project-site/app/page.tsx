@@ -1,13 +1,7 @@
 import { assetUrl } from '@/lib/asset-url';
-import { AICoding } from './ai-coding';
-import { Tactile } from './tactile';
-import { PolicyLearning } from './policy-learning';
-import { Teleoperation } from './teleoperation';
-import { HardwareAndData } from './hardware';
-import { Streams } from './streams';
-import { Dataset } from './dataset';
-import {HeroMedia} from './experiences';
-import { ArrowUpRight, Layers3, Cable, ScanLine, Fingerprint, Code2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { HeroMedia } from './experiences';
+import { PAGES, SiteFooter, SiteNav } from './site-chrome';
 
 const AUTHORS = [
   { name: 'Xiangyu Chen', equal: true },
@@ -15,20 +9,45 @@ const AUTHORS = [
   { name: 'Jiaxiao Shi', equal: true },
   { name: 'Yuxuan Hu', equal: false },
   { name: 'Yue Yang', equal: false },
-  { name: 'Jianfei Yang', equal: false },
+  { name: 'Jianfei Yang', equal: false, corresponding: true },
+];
+
+const FACTS = [
+  { value: '58', unit: 'DoF', label: 'two 7-DoF arms and two 22-DoF hands' },
+  { value: '~75', unit: 'demos / h', label: 'collected by one operator with RL hand skills' },
+  { value: '617', unit: 'episodes', label: 'in the open dataset, real and simulated' },
+  { value: '51.3', unit: '%', label: 'fewer repository-inspection calls with retrieval maps' },
 ];
 
 export default function Home() {
- return <><a className="skip" href="#platform">Skip to content</a>
- <main><nav className="hero-resource-links" aria-label="Project resources"><a href={assetUrl("/media/introduction.mp4")} target="_blank" rel="noreferrer">Watch the video <ArrowUpRight size={16}/></a><a href={assetUrl("/media/DextraVerse.pdf")} target="_blank" rel="noreferrer">Read the paper <ArrowUpRight size={16}/></a><a href="https://huggingface.co/datasets/ntumars/DextraVerse" target="_blank" rel="noreferrer">Dataset <ArrowUpRight size={16}/></a></nav><section className="hero hero-focused" id="platform"><div className="hero-copy"><img className="hero-logo" src={assetUrl("/media/logo-v2.svg")} alt="DextraVerse"/><h1>A Unified Platform for <span>Tactile-Rich Bimanual Dexterous Manipulation</span></h1><p className="hero-authors">{AUTHORS.map((a,i)=><span key={a.name}>{a.name}{a.equal&&<sup>*</sup>}{i<AUTHORS.length-1?', ':''}</span>)}</p><p className="hero-affiliation">MARS Lab, Nanyang Technological University<span><sup>*</sup>Equal contribution</span></p></div><div className="hero-visual"><HeroMedia/></div></section>
- <nav className="topic-links" aria-label="Explore platform capabilities">{[{id:'multimodal-sensing',label:'Multimodal Sensing',icon:ScanLine},{id:'teleoperation',label:'Teleoperation',icon:Cable},{id:'tactile',label:'Tactile',icon:Fingerprint},{id:'policy-learning',label:'Policy Learning',icon:Layers3},{id:'ai-development',label:'AI-Coding',icon:Code2}].map(item=><a key={item.id} href={`#${item.id}`}><item.icon size={23} strokeWidth={1.5}/><span>{item.label}</span></a>)}</nav>
- <HardwareAndData/>
- <Streams/>
- <Teleoperation/>
- <Tactile/>
- <PolicyLearning/>
-<AICoding/>
-<Dataset/>
-
-</main><footer className="site-footer"><div className="footer-bottom"><a className="brand" href="#">DextraVerse<span className="brand-dot">.</span></a><span>A unified platform for dexterous manipulation research.</span><div className="footer-links"><a href="#platform">Back to top ↑</a></div></div></footer></>
+  return <><a className="skip" href="#platform">Skip to content</a>
+    <SiteNav active="home"/>
+    <main id="top">
+      <section className="hero hero-focused" id="platform">
+        <div className="hero-copy">
+          <img className="hero-logo" src={assetUrl('/media/logo-v2.svg')} alt="DextraVerse"/>
+          <h1>A Unified Platform for <span>Tactile-Rich Bimanual Dexterous Manipulation</span></h1>
+          <p className="hero-authors">{AUTHORS.map((a, i) => <span key={a.name}>{a.name}{a.equal && <sup>*</sup>}{'corresponding' in a && <sup>†</sup>}{i < AUTHORS.length - 1 ? ', ' : ''}</span>)}</p>
+          <div className="hero-orgs" aria-label="MARS Lab, Nanyang Technological University">
+            <img src={assetUrl('/media/partners/marslab.png')} alt="MARS Lab" className="logo-marslab"/>
+            <span className="ntu-mark"><img src={assetUrl('/media/partners/ntu-crest.png')} alt=""/><span>Nanyang Technological<br/>University, Singapore</span></span>
+          </div>
+          <p className="hero-affiliation"><span><sup>*</sup>Equal contribution · <sup>†</sup>Corresponding author, <a href="mailto:jianfei.yang@ntu.edu.sg">jianfei.yang@ntu.edu.sg</a></span></p>
+        </div>
+        <div className="hero-visual"><HeroMedia/></div>
+      </section>
+      <section className="section home-overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">One Platform. <em>Shared Interfaces.</em></h2>
+        <p className="home-lead">DextraVerse connects teleoperation, multimodal sensing, imitation learning, reinforcement learning and execution in simulation and on real robots through shared control and data interfaces, so that findings can be compared across learning paradigms and components can be combined into new workflows.</p>
+        <dl className="home-facts">{FACTS.map(fact => <div key={fact.label}><dt><strong>{fact.value}</strong><span>{fact.unit}</span></dt><dd>{fact.label}</dd></div>)}</dl>
+        <div className="home-cards">
+          {PAGES.map(page => <a key={page.id} className="home-card" href={assetUrl(page.href)}>
+            <h3>{page.label}</h3>
+            <p>{page.summary}</p>
+            <span className="home-card-link">Open {page.label} <ArrowRight size={16}/></span>
+          </a>)}
+        </div>
+      </section>
+    </main>
+    <SiteFooter/></>;
 }
