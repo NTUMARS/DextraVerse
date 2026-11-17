@@ -5,6 +5,7 @@ import { PolicyLearning } from './policy-learning';
 import { Teleoperation } from './teleoperation';
 import { HardwareAndData } from './hardware';
 import { Streams } from './streams';
+import { Dataset } from './dataset';
 import {HeroMedia} from './experiences';
 import { ArrowUpRight, Layers3, Cable, ScanLine, Fingerprint, Code2 } from 'lucide-react';
 
@@ -27,6 +28,7 @@ export default function Home() {
  <Tactile/>
  <PolicyLearning/>
 <AICoding/>
+<Dataset/>
 
 </main><footer className="site-footer"><div className="footer-bottom"><a className="brand" href="#">DextraVerse<span className="brand-dot">.</span></a><span>A unified platform for dexterous manipulation research.</span><div className="footer-links"><a href="#platform">Back to top ↑</a></div></div></footer></>
 }

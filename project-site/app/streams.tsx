@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/asset-url';
 import { Fingerprint, Hand, Images, Move3D } from 'lucide-react';
 
 const STREAMS = [
@@ -39,6 +40,10 @@ export function Streams() {
   return <section className="section streams" id="streams" aria-labelledby="streams-title">
     <h2 id="streams-title">Stable Streams. <em>Real-Time Control.</em></h2>
     <p className="streams-lead">Arm control, hand control, images and tactile sensing each run in their own process at a fixed rate, so recording, visualisation or a slow sensor does not hold the robot back.</p>
+    <figure className="stream-demo">
+      <video autoPlay playsInline muted loop preload="metadata" src={assetUrl('/media/streams/stream-sync.mp4')} poster={assetUrl('/media/streams/stream-sync.jpg')} aria-label="One real demonstration: the robot model replaying measured joints, the head and wrist cameras, fingertip tactile maps and the sample rate of each stream"/>
+      <figcaption>One demonstration on the real robot, played in real time. The robot model, both camera views and the tactile maps are drawn from the same recorded rows.</figcaption>
+    </figure>
     <div className="stream-grid">
       {STREAMS.map(stream => <article key={stream.name} className="stream-card">
         <div className="stream-name"><stream.icon size={22} strokeWidth={1.5} aria-hidden="true"/><h3>{stream.name}</h3></div>
