@@ -7,7 +7,7 @@ const STREAMS = [
     rate: '100',
     unit: 'Hz',
     description: 'Joint setpoints for both 7-DoF arms, smoothed from the 60 Hz teleoperation loop.',
-    evidence: 'Measured: 99th-percentile interval 10.9 ms or better in four rig runs',
+    evidence: 'Measured: 99th-percentile interval 10.8 ms or better in four rig runs',
   },
   {
     icon: Hand,
@@ -15,7 +15,7 @@ const STREAMS = [
     rate: '200',
     unit: 'Hz',
     description: 'Joint targets streamed to each 22-DoF hand in impedance mode.',
-    evidence: 'Measured: 5.0 ms median interval, 167–181 Hz delivered',
+    evidence: 'Measured: 5.0 ms median interval, 160–181 Hz delivered',
   },
   {
     icon: Images,
@@ -23,7 +23,7 @@ const STREAMS = [
     rate: '30',
     unit: 'fps',
     description: 'Head stereo camera and both wrist cameras.',
-    evidence: 'Measured: 29.9 fps on all four camera streams',
+    evidence: 'Measured: 29.9 fps on all four cameras in the latest session',
   },
   {
     icon: Fingerprint,
