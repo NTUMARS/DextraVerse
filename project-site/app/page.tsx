@@ -1,16 +1,9 @@
 import { assetUrl } from '@/lib/asset-url';
 import { ArrowRight } from 'lucide-react';
 import { HeroMedia } from './experiences';
+import { AuthorList } from './authors';
 import { PAGES, SiteFooter, SiteNav } from './site-chrome';
 
-const AUTHORS = [
-  { name: 'Xiangyu Chen', equal: true },
-  { name: 'Chuhao Zhou', equal: true },
-  { name: 'Jiaxiao Shi', equal: true },
-  { name: 'Yuxuan Hu', equal: false },
-  { name: 'Yue Yang', equal: false },
-  { name: 'Jianfei Yang', equal: false, corresponding: true },
-];
 
 const FACTS = [
   { value: '58', unit: 'DoF', label: 'two 7-DoF arms and two 22-DoF hands' },
@@ -27,7 +20,7 @@ export default function Home() {
         <div className="hero-copy">
           <img className="hero-logo" src={assetUrl('/media/logo-v2.svg')} alt="DextraVerse"/>
           <h1>A Unified Platform for <span>Tactile-Rich Bimanual Dexterous Manipulation</span></h1>
-          <p className="hero-authors">{AUTHORS.map((a, i) => <span key={a.name}>{a.name}{a.equal && <sup>*</sup>}{'corresponding' in a && <sup>†</sup>}{i < AUTHORS.length - 1 ? ', ' : ''}</span>)}</p>
+          <p className="hero-authors"><AuthorList/></p>
           <div className="hero-orgs" aria-label="MARS Lab, Nanyang Technological University">
             <img src={assetUrl('/media/partners/marslab.png')} alt="MARS Lab" className="logo-marslab"/>
             <span className="ntu-mark"><img src={assetUrl('/media/partners/ntu-crest.png')} alt=""/><span>Nanyang Technological<br/>University, Singapore</span></span>

@@ -1,6 +1,7 @@
 import { assetUrl } from '@/lib/asset-url';
 import type { Metadata } from 'next';
 import { ArrowUpRight } from 'lucide-react';
+import { AuthorList } from '../authors';
 import { SiteFooter, SiteNav } from '../site-chrome';
 
 export const dynamic = 'force-static';
@@ -8,7 +9,7 @@ export const metadata: Metadata = { title: 'Papers — DextraVerse' };
 
 type Paper = {
   title: string;
-  authors: string;
+  authors: string | 'dextraverse';
   venue: string;
   note?: string;
   image?: string;
@@ -19,7 +20,7 @@ type Paper = {
 const SECTIONS: { title: string; papers: Paper[] }[] = [
   { title: 'The platform', papers: [{
     title: 'DextraVerse: A Unified Platform for Tactile-Rich Bimanual Dexterous Manipulation',
-    authors: 'Xiangyu Chen*, Chuhao Zhou*, Jiaxiao Shi*, Yuxuan Hu, Yue Yang, Jianfei Yang†',
+    authors: 'dextraverse',
     venue: '2026 · under review',
     note: '* Equal contribution · † Corresponding author (jianfei.yang@ntu.edu.sg)',
     image: '/media/papers/dextraverse.jpg',
@@ -59,7 +60,7 @@ export default function PapersPage() {
             <div className="paper-body">
               <span className="paper-venue">{paper.venue}</span>
               <h3>{paper.title}</h3>
-              <p className="paper-authors">{paper.authors}</p>
+              <p className="paper-authors">{paper.authors === 'dextraverse' ? <AuthorList/> : paper.authors}</p>
               {paper.note && <p className="paper-note">{paper.note}</p>}
               <div className="paper-links">{paper.links.map(link => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label} <ArrowUpRight size={14}/></a>)}</div>
               {paper.bibtex && <details className="paper-bib"><summary>BibTeX</summary><pre className="dataset-code"><code>{paper.bibtex}</code></pre></details>}
