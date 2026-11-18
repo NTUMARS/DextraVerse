@@ -1,7 +1,7 @@
 'use client';
 
 import { assetUrl } from '@/lib/asset-url';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Step = { when: string; title: string; note: string; video?: string; compare?: { real: string; sim: string } };
 
@@ -16,13 +16,25 @@ const STEPS: Step[] = [
 
 function Compare({ real, sim }: { real: string; sim: string }) {
   const [split, setSplit] = useState(50);
-  return <div className="compare">
+  const [dragging, setDragging] = useState(false);
+  // The divider rests half-transparent and comes forward while it is held; release can happen outside the image.
+  useEffect(() => {
+    if (!dragging) return;
+    const release = () => setDragging(false);
+    window.addEventListener('pointerup', release);
+    window.addEventListener('pointercancel', release);
+    return () => {
+      window.removeEventListener('pointerup', release);
+      window.removeEventListener('pointercancel', release);
+    };
+  }, [dragging]);
+  return <div className={dragging ? 'compare dragging' : 'compare'}>
     <img src={assetUrl(sim)} alt="The rebuilt scene rendered in simulation"/>
     <img src={assetUrl(real)} alt="The real head-camera photo" style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}/>
-    <span className="compare-line" style={{ left: `${split}%` }} aria-hidden="true"/>
+    <input type="range" min={0} max={100} value={split} onChange={e => setSplit(Number(e.target.value))} onPointerDown={() => setDragging(true)} aria-label="Move the divider between the real photo and the simulation"/>
+    <span className="compare-line" style={{ left: `${split}%` }} aria-hidden="true"><span className="compare-handle">⟷</span></span>
     <span className="compare-tag left">Real photo</span>
     <span className="compare-tag right">Simulation</span>
-    <input type="range" min={0} max={100} value={split} onChange={e => setSplit(Number(e.target.value))} aria-label="Move the divider between the real photo and the simulation"/>
   </div>;
 }
 

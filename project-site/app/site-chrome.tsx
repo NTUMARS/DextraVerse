@@ -2,7 +2,7 @@ import { assetUrl } from '@/lib/asset-url';
 import { ArrowUpRight } from 'lucide-react';
 
 export const PAGES = [
-  { id: 'hardware', label: 'Hardware', href: '/hardware/', summary: 'A 58-DoF bimanual robot, interchangeable wrist and hand interfaces, and fixed-rate control, image and tactile streams.' },
+  { id: 'system', label: 'System', href: '/system/', summary: 'A 58-DoF bimanual robot, interchangeable wrist and hand interfaces, and fixed-rate control, image and tactile streams.' },
   { id: 'simulation', label: 'Simulation', href: '/simulation/', summary: 'A matched Isaac Lab model with simulated fingertip sensing, imitation tasks and reinforcement-learning skills.' },
   { id: 'policy', label: 'Policy', href: '/policy/', summary: 'Imitation and reinforcement learning on shared interfaces, with tactile representation benchmarks and tactile rewards.' },
   { id: 'tactile', label: 'Tactile', href: '/tactile/', summary: 'What the tactile studies show so far: six findings across imitation and reinforcement learning, with the numbers behind them.' },

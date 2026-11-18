@@ -41,6 +41,9 @@ export default function Home() {
           </a>)}
         </div>
       </section>
+      <section className="home-slogan" aria-label="Slogan">
+        <p><span>DextraVerse finds the boundaries of robotics.</span> <em>We push them.</em></p>
+      </section>
     </main>
     <SiteFooter/></>;
 }
