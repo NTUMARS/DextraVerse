@@ -90,7 +90,7 @@ export default function TactilePage() {
       <section className="section tactile-page" aria-labelledby="tactile-page-title">
         <h1 id="tactile-page-title">What touch adds. <em>And where it does not.</em></h1>
         <div className="config-matrix-wrap"><table className="config-matrix">
-          <caption>Six configurations, T0 to T5: what the policy receives from each fingertip.</caption>
+          <caption><span>Six configurations, T0 to T5: what the policy receives from each fingertip.</span></caption>
           <thead><tr><td/>{CONFIGS.map((config, i) => <th scope="col" key={config.name}><strong>T{i}</strong><span>{config.name}</span></th>)}</tr></thead>
           <tbody>{SIGNALS.map((signal, row) => <tr key={signal.name}>
             <th scope="row"><strong>{signal.name}</strong><span>{signal.shape}</span></th>

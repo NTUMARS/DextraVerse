@@ -29,27 +29,26 @@ function diverging(v: number) {
   return `rgb(${NEUTRAL.map((n, i) => Math.round(n + (end[i] - n) * t)).join(',')})`;
 }
 
-/** The 58 joint targets at the snapshot moment: arms on top, hands below, each group scaled to its largest magnitude. */
+/** The 58 joint targets at the snapshot moment: arms on top, hands below, each group scaled to its largest magnitude.
+ *  The cells scale with the panel; the labels are HTML so they keep a readable size on every screen. */
 function ActionCells() {
   const W = 212, GAP = 8, H = 13;
   const rows = [MODALITY_ACTIONS.slice(0, 2), MODALITY_ACTIONS.slice(2)];
   const names: Record<string, string> = { 'L arm': 'Left arm', 'R arm': 'Right arm', 'L hand': 'Left hand', 'R hand': 'Right hand' };
-  return <svg className="sc-actions" viewBox={`0 0 ${W} 54`} aria-hidden="true">
+  return <div className="sc-actions" aria-hidden="true">
     {rows.map((groups, r) => {
       const n = groups.reduce((sum, g) => sum + g.values.length, 0);
       const cell = (W - GAP) / n;
-      const y = 10 + r * 27;
       let x = 0;
-      return groups.map(g => {
-        const x0 = x;
-        x += g.values.length * cell + GAP;
-        return <g key={g.label}>
-          <text x={x0} y={y - 3}>{names[g.label]}</text>
-          {g.values.map((v, i) => <rect key={i} x={x0 + i * cell} y={y} width={Math.max(cell - 0.8, 0.8)} height={H} rx="0.8" fill={diverging(v)}/>)}
-        </g>;
-      });
+      const placed = groups.map(g => { const x0 = x; x += g.values.length * cell + GAP; return { g, x0 }; });
+      return <div className="sc-actions-row" key={r}>
+        <div className="sc-actions-labels">{placed.map(({ g, x0 }) => <span key={g.label} style={{ left: `${(x0 / W) * 100}%` }}>{names[g.label]}</span>)}</div>
+        <svg viewBox={`0 0 ${W} ${H}`}>
+          {placed.map(({ g, x0 }) => g.values.map((v, i) => <rect key={`${g.label}${i}`} x={x0 + i * cell} y={0} width={Math.max(cell - 0.8, 0.8)} height={H} rx="0.8" fill={diverging(v)}/>))}
+        </svg>
+      </div>;
     })}
-  </svg>;
+  </div>;
 }
 
 const STREAMS: { key: string; icon: LucideIcon; title: string; text: string }[] = [
